@@ -1,5 +1,9 @@
 package simulador.batalla;
 
+import simulador.pokemon.Pokemon;
+
 public class Batalla {
-    // TODO: Aquí va tu código
+    public void iniciarBatalla(Pokemon pokemon1, Pokemon pokemon2){
+        //TODO: Completar metodo
+    }
 }
