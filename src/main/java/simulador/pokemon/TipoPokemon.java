@@ -1,5 +1,7 @@
 package simulador.pokemon;
 
 public class TipoPokemon {
-    // TODO: Aquí va tu código
+   public void obtenerMultiplicadorDeDaño(TipoPokemon atacante, TipoPokemon defensor){
+    // TODO: completar metodo
+   }
 }
