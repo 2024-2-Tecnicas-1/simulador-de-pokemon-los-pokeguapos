@@ -1,6 +1,6 @@
-package simulador.batalla;
+package simulador.logicaNegocio.batalla;
 
-import simulador.pokemon.Pokemon;
+import simulador.logicaNegocio.pokemon.Pokemon;
 
 public class Batalla {
     public void iniciarBatalla(Pokemon pokemon1, Pokemon pokemon2){

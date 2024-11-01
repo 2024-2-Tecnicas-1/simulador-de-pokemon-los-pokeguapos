@@ -1,8 +1,8 @@
-package simulador.entrenador;
+package simulador.logicaNegocio.entrenador;
 
 import java.util.List;
 
-import simulador.pokemon.Pokemon;
+import simulador.logicaNegocio.pokemon.Pokemon;
 
 public class Entrenador {
     private String nombreEntrenador;

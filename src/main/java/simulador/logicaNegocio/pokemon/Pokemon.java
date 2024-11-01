@@ -1,4 +1,4 @@
-package simulador.pokemon;
+package simulador.logicaNegocio.pokemon;
 
 public class Pokemon {
     private String nombre;
