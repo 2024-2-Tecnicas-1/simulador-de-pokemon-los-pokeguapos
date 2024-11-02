@@ -2,9 +2,7 @@ package simulador.View;
 
 public class Menu {
 
-    
-
-    public void MenuPrincipal(){
+    public static void MenuPrincipal(){
         System.out.println(
         "                                  ,'\\\n" +
         "    _.----.        ____         ,'  _\\   ___    ___     ____\n" +
@@ -29,7 +27,7 @@ public class Menu {
         );
     }
 
-    public void MenuGestionarEntrenadores(){
+    public static void MenuGestionarEntrenadores(){
         System.out.println(
             "                                  ,'\\\n" +
             "    _.----.        ____         ,'  _\\   ___    ___     ____\n" +
@@ -54,7 +52,7 @@ public class Menu {
         );
     }
 
-    public void MenuGestionarPokemones(){
+    public static void MenuGestionarPokemones(){
         System.out.println(
             "                                  ,'\\\n" +
             "    _.----.        ____         ,'  _\\   ___    ___     ____\n" +
