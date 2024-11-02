@@ -1,4 +1,4 @@
-
+package simulador.logicaNegocio.Pokemones;
 
 import simulador.logicaNegocio.pokemon.Estados;
 import simulador.logicaNegocio.pokemon.Pokemon;
