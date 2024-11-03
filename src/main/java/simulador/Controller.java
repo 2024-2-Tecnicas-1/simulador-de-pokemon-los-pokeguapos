@@ -1,12 +1,23 @@
 package simulador;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.*;
+
 import simulador.View.Menu;
+import simulador.logicaNegocio.Pokemones.Abra;
+import simulador.logicaNegocio.Pokemones.Bulbasaur;
+import simulador.logicaNegocio.Pokemones.Charmander;
+import simulador.logicaNegocio.Pokemones.Geodude;
+import simulador.logicaNegocio.Pokemones.Grimer;
+import simulador.logicaNegocio.Pokemones.Jigglypuff;
+import simulador.logicaNegocio.Pokemones.Machop;
+import simulador.logicaNegocio.Pokemones.Pidgey;
+import simulador.logicaNegocio.Pokemones.Pikachu;
+import simulador.logicaNegocio.Pokemones.Squirtle;
 import simulador.logicaNegocio.entrenador.*;
+import simulador.logicaNegocio.pokemon.Estados;
 import simulador.logicaNegocio.pokemon.Pokemon;
+import simulador.logicaNegocio.pokemon.TipoPokemon;
  
 
 public class Controller implements Serializable{
@@ -14,6 +25,69 @@ public class Controller implements Serializable{
 
     HashMap<String,Entrenador> entrenadores = new HashMap<>();
     HashMap<String,Pokemon> pokemones = new HashMap<>();
+    LinkedList<String> Pokemones = new LinkedList<>();
+    
+    public Controller(){
+        Pokemones.add("1. Abra");
+        Pokemones.add("2. Bulbasaur");
+        Pokemones.add("3. Charmander");
+        Pokemones.add("4. Geodude");
+        Pokemones.add("5. Grimer");
+        Pokemones.add("6. Jigglypuff");
+        Pokemones.add("7. Machop");
+        Pokemones.add("8. Pidgey");
+        Pokemones.add("9. Pikachu");
+        Pokemones.add("10. Squirtle");     
+    }
+
+    public void seleccionarPokemon(){
+
+        System.out.println("Seleccione una opción: ");
+        for (String pokemon : Pokemones) {
+            System.out.println(pokemon); }
+        int opcion = sc.nextInt();
+        
+        switch (opcion) {
+            
+            case 1:
+            pokemones.put("Abra", new Abra("Abra", 25, 20, TipoPokemon.PSIQUICO, null));
+                break;
+            case 2:
+            pokemones.put("Bulbasaur", new Bulbasaur("Bulbasaur", 45, 49, TipoPokemon.PLANTA, null));
+                break;
+            case 3:
+            pokemones.put ("Charmander", new Charmander("Charmander", 39, 52, TipoPokemon.FUEGO, null ));
+                break;
+            case 4:
+            pokemones.put("Geodude", new Geodude("Geodude", 40, 80, TipoPokemon.ROCA, null ));
+                break;
+            case 5:
+            pokemones.put("Grimer", new Grimer("Grimer", 80, 80, TipoPokemon.VENENO, null));
+                break;
+            case 6:
+            pokemones.put("Jigglypuff", new Jigglypuff("Jigglypuff", 115, 45, TipoPokemon.HADA, null));
+                break;
+            case 7:
+            pokemones.put("Machop", new Machop("Machop", 70, 80, TipoPokemon.LUCHA, null));
+                break;
+            case 8: 
+            pokemones.put("Pidgey", new Pidgey("Pidgey", 40, 45, TipoPokemon.VOLADOR, null));
+                break;
+            case 9:
+            pokemones.put("Pikachu", new Pikachu("Pikachu", 35, 55, TipoPokemon.ELECTRICO, null));
+                break;
+            case 10:
+            pokemones.put("Squirtle", new Squirtle("Squirtle", 44, 48, TipoPokemon.AGUA, null));
+            break;
+
+            default:
+                throw new AssertionError();
+        }
+    }
+
+
+
+
 
     public void run(){
         ConsoleMenuPrincipal();
@@ -91,7 +165,8 @@ public class Controller implements Serializable{
                     // Logica para Mostrar lista de pokemones registrados - DANIEL
                     break;
                 case 2:
-                    // Logica para registrar nuevo pokemon - LUISA
+
+                    }
                     break;
                 case 3:
                     break;    
