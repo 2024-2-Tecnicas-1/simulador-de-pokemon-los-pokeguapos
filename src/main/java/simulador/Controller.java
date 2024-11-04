@@ -165,8 +165,7 @@ public class Controller implements Serializable{
                     // Logica para Mostrar lista de pokemones registrados - DANIEL
                     break;
                 case 2:
-
-                    }
+                    // Logica de registrar pokemones - Luisa
                     break;
                 case 3:
                     break;    
