@@ -3,6 +3,7 @@ package simulador;
 import java.io.Serializable;
 import java.util.*;
 
+import simulador.View.ListaPokemones;
 import simulador.View.Menu;
 import simulador.logicaNegocio.entrenador.*;
 import simulador.logicaNegocio.pokemon.Estados;
@@ -153,9 +154,7 @@ public class Controller implements Serializable{
                     if(pokemonesList.size() == 1){
                         System.out.println("! No hay pokemones registrados !");
                     } else {
-                        for(int i = 1; i < pokemonesList.size(); i++){
-                            System.out.println(i + ". | " + pokemonesList.get(i).getNombre() + " | ");
-                        }
+                        mostrarPokemonesRegistrados();
                     }
                     break;
                 case 2:
@@ -219,6 +218,13 @@ public class Controller implements Serializable{
     void mostrarPokemonesRegistro(){
         for(int i = 1; i < disponiblesRegistro.size(); i++){
             System.out.println(i + ". | " + disponiblesRegistro.get(i).getNombre());
+        }
+    }
+
+    void mostrarPokemonesRegistrados(){
+        for(int i = 1; i < pokemonesList.size(); i++){
+            Pokemon pokemon = pokemonesList.get(i);
+            ListaPokemones.Lista(pokemon);
         }
     }
 }
