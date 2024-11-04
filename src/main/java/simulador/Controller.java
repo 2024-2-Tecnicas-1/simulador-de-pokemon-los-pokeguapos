@@ -1,11 +1,14 @@
 package simulador;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 
 import simulador.View.ListaPokemones;
 import simulador.View.Menu;
-import simulador.logicaNegocio.entrenador.*;
+import simulador.logicaNegocio.entrenador.Entrenador;
 import simulador.logicaNegocio.pokemon.Estados;
 import simulador.logicaNegocio.pokemon.Pokemon;
 import simulador.logicaNegocio.pokemon.TipoPokemon;
@@ -205,7 +208,7 @@ public class Controller implements Serializable{
         disponiblesRegistro.add(nuevoPokemon);
         nuevoPokemon = new Pokemon("Machop",70,80, TipoPokemon.LUCHA,Estados.NORMAL);
         disponiblesRegistro.add(nuevoPokemon);
-        nuevoPokemon = new Pokemon("Grimmer", 80, 80, TipoPokemon.VENENO,Estados.NORMAL);
+        nuevoPokemon = new Pokemon("Grimer", 80, 80, TipoPokemon.VENENO,Estados.NORMAL);
         disponiblesRegistro.add(nuevoPokemon);
     }
 
