@@ -4,16 +4,6 @@ import java.io.Serializable;
 import java.util.*;
 
 import simulador.View.Menu;
-import simulador.logicaNegocio.Pokemones.Abra;
-import simulador.logicaNegocio.Pokemones.Bulbasaur;
-import simulador.logicaNegocio.Pokemones.Charmander;
-import simulador.logicaNegocio.Pokemones.Geodude;
-import simulador.logicaNegocio.Pokemones.Grimer;
-import simulador.logicaNegocio.Pokemones.Jigglypuff;
-import simulador.logicaNegocio.Pokemones.Machop;
-import simulador.logicaNegocio.Pokemones.Pidgey;
-import simulador.logicaNegocio.Pokemones.Pikachu;
-import simulador.logicaNegocio.Pokemones.Squirtle;
 import simulador.logicaNegocio.entrenador.*;
 import simulador.logicaNegocio.pokemon.Estados;
 import simulador.logicaNegocio.pokemon.Pokemon;
@@ -22,72 +12,30 @@ import simulador.logicaNegocio.pokemon.TipoPokemon;
 
 public class Controller implements Serializable{
     Scanner sc = new Scanner(System.in);
+    
+    //HashMap<Pokemon,Boolean> disponiblesRegistroMap = new HashMap<>();
+    List<Pokemon> disponiblesRegistro = new ArrayList<>();
 
     HashMap<String,Entrenador> entrenadores = new HashMap<>();
-    HashMap<String,Pokemon> pokemones = new HashMap<>();
-    LinkedList<String> Pokemones = new LinkedList<>();
+    List<Entrenador> entrenadoresList = new ArrayList<>();     
+
+    //HashMap<String,Pokemon> pokemones = new HashMap<>();
+    List<Pokemon> pokemonesList = new ArrayList<>();
     
+    HashMap<Pokemon,Boolean> disponiblesEntrenadorMap = new HashMap<>();
+    List<Pokemon> disponiblesEntrenador = new ArrayList<>();
+
+    // BASES
+    List<Pokemon> pokemonesBase = new ArrayList<>();
+    Entrenador entrenador = new Entrenador("Base", null);
+    Pokemon pokBase = new Pokemon(null, 0, 0, null, null);
+
     public Controller(){
-        Pokemones.add("1. Abra");
-        Pokemones.add("2. Bulbasaur");
-        Pokemones.add("3. Charmander");
-        Pokemones.add("4. Geodude");
-        Pokemones.add("5. Grimer");
-        Pokemones.add("6. Jigglypuff");
-        Pokemones.add("7. Machop");
-        Pokemones.add("8. Pidgey");
-        Pokemones.add("9. Pikachu");
-        Pokemones.add("10. Squirtle");     
+        pokemonesBase.add(pokBase);
+        entrenadoresList.add(entrenador);
+        pokemonesList.add(pokBase);
+        agregarPokemones();
     }
-
-    public void seleccionarPokemon(){
-
-        System.out.println("Seleccione una opción: ");
-        for (String pokemon : Pokemones) {
-            System.out.println(pokemon); }
-        int opcion = sc.nextInt();
-        
-        switch (opcion) {
-            
-            case 1:
-            pokemones.put("Abra", new Abra("Abra", 25, 20, TipoPokemon.PSIQUICO, null));
-                break;
-            case 2:
-            pokemones.put("Bulbasaur", new Bulbasaur("Bulbasaur", 45, 49, TipoPokemon.PLANTA, null));
-                break;
-            case 3:
-            pokemones.put ("Charmander", new Charmander("Charmander", 39, 52, TipoPokemon.FUEGO, null ));
-                break;
-            case 4:
-            pokemones.put("Geodude", new Geodude("Geodude", 40, 80, TipoPokemon.ROCA, null ));
-                break;
-            case 5:
-            pokemones.put("Grimer", new Grimer("Grimer", 80, 80, TipoPokemon.VENENO, null));
-                break;
-            case 6:
-            pokemones.put("Jigglypuff", new Jigglypuff("Jigglypuff", 115, 45, TipoPokemon.HADA, null));
-                break;
-            case 7:
-            pokemones.put("Machop", new Machop("Machop", 70, 80, TipoPokemon.LUCHA, null));
-                break;
-            case 8: 
-            pokemones.put("Pidgey", new Pidgey("Pidgey", 40, 45, TipoPokemon.VOLADOR, null));
-                break;
-            case 9:
-            pokemones.put("Pikachu", new Pikachu("Pikachu", 35, 55, TipoPokemon.ELECTRICO, null));
-                break;
-            case 10:
-            pokemones.put("Squirtle", new Squirtle("Squirtle", 44, 48, TipoPokemon.AGUA, null));
-            break;
-
-            default:
-                throw new AssertionError();
-        }
-    }
-
-
-
-
 
     public void run(){
         ConsoleMenuPrincipal();
@@ -128,23 +76,41 @@ public class Controller implements Serializable{
                     while(true){
                         System.out.print("Escribe el nombre del nuevo entrenador: \n ->  ");
                         String nombre = sc.nextLine();
-                        nombre = nombre.toLowerCase();
+                        //nombre = nombre.toLowerCase();
                         if(entrenadores.containsKey(nombre)){
                             System.out.println("Este nombre ya esta tomado por otro entrenador, elige otro nombre.");
                         } else {
-                            entrenadores.put(nombre,new Entrenador(nombre, null));
+                            entrenadores.put(nombre,new Entrenador(nombre, pokemonesBase));
+                            entrenadoresList.add(new Entrenador(nombre, pokemonesBase));
                             System.out.println("El entrenador fue creado correctamente");
                             break;
                         }
                     }
                     break;
                 case 2:
-                    for(String entrenador: entrenadores.keySet()){
-                        System.out.println("- " + entrenador);
+                    if(entrenadoresList.size() == 1){
+                        System.out.println("! No hay entrenadores registrados !");
+                    } else {
+                        MostrarEntrenadores();
                     }
                     break;
                 case 3:
-                    // Logica para seleccionar entrenador
+                    if(entrenadoresList.size() == 1){
+                        System.out.println("! No hay entrenadores registrados !");
+                    } else {
+                        MostrarEntrenadores();
+                        while(true){
+                            System.out.print("Elija un entrenador ->\n");
+                            int value = sc.nextInt();
+                            if(value > 0 && value < entrenadoresList.size()){
+                                Entrenador entrenador = entrenadoresList.get(value);
+                                ConsoleEntrenadorEspecifico(entrenador);
+                                break;
+                            } else{
+                                System.out.println("Error, intentelo de nuevo");
+                            }
+                        }
+                    }
                     break;
                 case 4:
                     break;
@@ -155,6 +121,28 @@ public class Controller implements Serializable{
         }
     }
 
+    public void ConsoleEntrenadorEspecifico(Entrenador entrenador){
+        Menu.MenuEntrenadorEspecifico(entrenador.getNombre());
+        int value = 0;
+        while(value != 4){
+            value = sc.nextInt();
+            switch (value) {
+                case 1:
+                    // Logica de ver equipo de pokemones;
+                    break;
+                case 2:
+                    // logica de Agregar Pokémon al equipo
+                case 3:
+                    // Logica de Entrenar Pokémon
+                case 4:
+                    break;
+                default:
+                    System.out.println("Error, intentelo de nuevo");
+                    break;
+            }
+        }
+    }
+    
     public void ConsoleGestionarPokemones(){
         int option = 0;
         while(option != 3){
@@ -162,10 +150,32 @@ public class Controller implements Serializable{
             option = sc.nextInt();
             switch (option) {
                 case 1:
-                    // Logica para Mostrar lista de pokemones registrados - DANIEL
+                    if(pokemonesList.size() == 1){
+                        System.out.println("! No hay pokemones registrados !");
+                    } else {
+                        for(int i = 1; i < pokemonesList.size(); i++){
+                            System.out.println(i + ". | " + pokemonesList.get(i).getNombre() + " | ");
+                        }
+                    }
                     break;
                 case 2:
-                    // Logica de registrar pokemones - Luisa
+                    if(disponiblesRegistro.size() == 1){
+                        System.out.println("! No hay pokemones disponibles para registrar !");
+                    } else {
+                        while(true){
+                            mostrarPokemonesRegistro();
+                            int value = sc.nextInt();
+                            if(value > 0 && value < disponiblesRegistro.size()){
+                                Pokemon nuevoPokemon = disponiblesRegistro.get(value);
+                                pokemonesList.add(nuevoPokemon);
+                                disponiblesEntrenador.add(nuevoPokemon);
+                                disponiblesRegistro.remove(value);
+                                break;
+                            } else {
+                                System.out.println("Error, intente de nuevo");
+                            }
+                        }
+                    }
                     break;
                 case 3:
                     break;    
@@ -175,6 +185,42 @@ public class Controller implements Serializable{
             }
         }
     } 
+
+    public void agregarPokemones(){
+        disponiblesRegistro.add(pokBase);
+        Pokemon nuevoPokemon = new Pokemon("Charmander", 39, 52, TipoPokemon.FUEGO, Estados.NORMAL);
+        disponiblesRegistro.add(nuevoPokemon);
+        nuevoPokemon = new Pokemon("Squirtle", 44, 48, TipoPokemon.AGUA, Estados.NORMAL);
+        disponiblesRegistro.add(nuevoPokemon);
+        nuevoPokemon = new Pokemon("Bulbasaur", 45, 49, TipoPokemon.PLANTA, Estados.NORMAL);
+        disponiblesRegistro.add(nuevoPokemon);
+        nuevoPokemon = new Pokemon("Pikachu", 45, 49, TipoPokemon.ELECTRICO, Estados.NORMAL);
+        disponiblesRegistro.add(nuevoPokemon);
+        nuevoPokemon = new Pokemon("Abra", 25, 80, TipoPokemon.PSIQUICO, Estados.NORMAL);
+        disponiblesRegistro.add(nuevoPokemon);
+        nuevoPokemon = new Pokemon("Geodude", 40, 80, TipoPokemon.TIERRA, Estados.NORMAL);
+        disponiblesRegistro.add(nuevoPokemon);
+        nuevoPokemon = new Pokemon("Pidgey", 40,45, TipoPokemon.NORMAL,Estados.NORMAL);
+        disponiblesRegistro.add(nuevoPokemon);
+        nuevoPokemon = new Pokemon("Jigglypuff",115,45,TipoPokemon.HADA,Estados.NORMAL);
+        disponiblesRegistro.add(nuevoPokemon);
+        nuevoPokemon = new Pokemon("Machop",70,80, TipoPokemon.LUCHA,Estados.NORMAL);
+        disponiblesRegistro.add(nuevoPokemon);
+        nuevoPokemon = new Pokemon("Grimmer", 80, 80, TipoPokemon.VENENO,Estados.NORMAL);
+        disponiblesRegistro.add(nuevoPokemon);
+    }
+
+    void MostrarEntrenadores(){
+        for(int i = 1; i < entrenadoresList.size(); i++){
+            System.out.println(i + ". | " + entrenadoresList.get(i).getNombre() + " | ");
+        }
+    }
+
+    void mostrarPokemonesRegistro(){
+        for(int i = 1; i < disponiblesRegistro.size(); i++){
+            System.out.println(i + ". | " + disponiblesRegistro.get(i).getNombre());
+        }
+    }
 }
 
 

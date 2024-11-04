@@ -44,10 +44,10 @@ public class Menu {
             "====================================================================\n" +
             "                     Gestionar Entrenadores\n" +
             "====================================================================\n" +
-            "                         1. < Registrar Nuevo Entrenador >\n" +
-            "                         2. < Ver Lista de Entrenadores > \n" +
-            "                         3. < Seleccionar un Entrenador >\n" +
-            "                         4. < Volver al Menú Principal >\n" +
+            "                     1. < Registrar Nuevo Entrenador >\n" +
+            "                     2. < Ver Lista de Entrenadores > \n" +
+            "                     3. < Seleccionar un Entrenador >\n" +
+            "                     4. < Volver al Menú Principal >\n" +
             "===================================================================="
         );
     }
@@ -103,8 +103,29 @@ public class Menu {
         );
     }
 
-    public void MenuListaPokemones(){
-                
+    public static void MenuEntrenadorEspecifico(String nombre){
+        System.out.println(
+            "                                  ,'\\\n" +
+            "    _.----.        ____         ,'  _\\   ___    ___     ____\n" +
+            " _,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.\n" +
+            " \\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |\n" +
+            "  \\.    \\ \\   |  __  |  |/    ,' ,'_  `.  |          | __  |    \\|  |\n" +
+            "    \\    \\/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |\n" +
+            "     \\     ,-'/  /   \\    ,'   | \\/ / ,`. |         /  /   \\  |     |\n" +
+            "      \\    \\ |   \\_/  |   `-.  \\    `'  /|  |    ||   \\_/  | |\\    |\n" +
+            "       \\    \\ \\      /       `-.`.___,-' |  |\\  /| \\      /  | |   |\n" +
+            "        \\    \\ `.__,'|  |`-._    `|      |__| \\/ |  `.__,'|  | |   |\n" +
+            "         \\_.-'       |__|    `-._ |              '-.|     '-.| |   |\n" +
+            "                                 `'                            '-._|\n" +
+            "====================================================================\n" +
+            "                           Menu de " + nombre + "\n" +
+            "====================================================================\n" +
+            "                         1. < Ver equipo de Pokemones >\n" +
+            "                         2. < Agregar Pokémon al equipo > \n" +
+            "                         3. < Entrenar Pokemon >\n" +
+            "                         4. < Volver a Gestionar Entrenadores >\n" +
+            "===================================================================="
+        );
     }
 
 }

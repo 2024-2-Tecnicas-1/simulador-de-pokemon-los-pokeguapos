@@ -28,4 +28,47 @@ public class Pokemon {
         // TODO: Completar metodo
     }
 
+    // GETTERS
+    public String getNombre(){
+        return this.nombre;
+    }
+    
+    public int getSalud(){
+        return this.salud;
+    }
+
+    public int getPuntosDeAtaque(){
+        return this.puntosDeAtaque;
+    }
+
+    public TipoPokemon getTipo(){
+        return this.tipo;
+    }
+
+    public Estados getEstado(){
+        return this.estado;
+    }
+
+    // SETTERS
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setSalud(int salud) {
+        this.salud = salud;
+    }
+
+    public void setPuntosDeAtaque(int puntosDeAtaque) {
+        this.puntosDeAtaque = puntosDeAtaque;
+    }
+
+    public void setTipo(TipoPokemon tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setEstado(Estados estado) {
+        this.estado = estado;
+    }
+        
+
 }

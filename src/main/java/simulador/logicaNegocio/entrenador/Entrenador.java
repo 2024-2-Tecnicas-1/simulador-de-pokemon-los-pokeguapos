@@ -27,4 +27,8 @@ public class Entrenador {
     public void prepararBatalla(){
         //TODO: completar el metodo
     }
+
+    public String getNombre(){
+        return this.nombreEntrenador;
+    }
 }
