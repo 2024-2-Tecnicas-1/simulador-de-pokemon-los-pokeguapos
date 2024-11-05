@@ -25,7 +25,8 @@ public class Pokemon {
     }
 
     public void entrenar(){
-        // TODO: Completar metodo
+        this.salud += 5;
+        this.puntosDeAtaque += 2;
     }
 
     // GETTERS

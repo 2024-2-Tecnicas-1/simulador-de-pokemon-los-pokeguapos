@@ -155,6 +155,12 @@ public class Controller implements Serializable{
                     }
                 case 3:
                     // Logica de Entrenar Pokémon
+                    /*
+                     1- Listar los pokemones de ese entrenador
+                     2- Que el usuario elija que pokemon de la lista desea entrenar
+                     3- Implementar UI en Classe ArtEntrenar.java
+                     4- Subirle puntaje a salud y daño
+                     */
                 case 4:
                     break;
                 default:
