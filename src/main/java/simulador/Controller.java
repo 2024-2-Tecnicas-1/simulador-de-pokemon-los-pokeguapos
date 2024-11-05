@@ -26,7 +26,7 @@ public class Controller implements Serializable{
     //HashMap<String,Pokemon> pokemones = new HashMap<>();
     List<Pokemon> pokemonesList = new ArrayList<>();
     
-    HashMap<Pokemon,Boolean> disponiblesEntrenadorMap = new HashMap<>();
+    //HashMap<Pokemon,Boolean> disponiblesEntrenadorMap = new HashMap<>();
     List<Pokemon> disponiblesEntrenador = new ArrayList<>();
 
     // BASES
@@ -127,22 +127,38 @@ public class Controller implements Serializable{
     }
 
     public void ConsoleEntrenadorEspecifico(Entrenador entrenador){
-        Menu.MenuEntrenadorEspecifico(entrenador.getNombre());
         int value = 0;
         while(value != 4){
+            Menu.MenuEntrenadorEspecifico(entrenador.getNombre());
+            value = 0;
             value = sc.nextInt();
             switch (value) {
                 case 1:
                     entrenador.mostrarPokemones();
                     break;
                 case 2:
-                    // logica de Agregar Pokémon al equipo
+                    if(disponiblesEntrenador.size() == 1){
+                        System.out.println("! No hay pokemones disponibles !");
+                    } else {
+                        mostrarPokemonesDisponiblesEntrenador();
+                        while(true){
+                            int option = sc.nextInt();
+                            if(option > 0 && option < disponiblesEntrenador.size()){
+                                Pokemon pokemon = disponiblesEntrenador.get(option);
+                                disponiblesEntrenador.remove(option);
+                                entrenador.agregarPokemon(pokemon);
+                                break;
+                            } else {
+                                System.out.println("Error, intentelo de nuevo.");
+                            }
+                        }
+                    }
                 case 3:
                     // Logica de Entrenar Pokémon
                 case 4:
                     break;
                 default:
-                    System.out.println("Error, intentelo de nuevo");
+                    System.out.println("Error, intentelo de nuevo.");
                     break;
             }
         }
@@ -228,6 +244,13 @@ public class Controller implements Serializable{
     void mostrarPokemonesRegistrados(){
         for(int i = 1; i < pokemonesList.size(); i++){
             Pokemon pokemon = pokemonesList.get(i);
+            ListaPokemones.Lista(pokemon);
+        }
+    }
+
+    void mostrarPokemonesDisponiblesEntrenador(){
+        for(int i = 1; i < disponiblesEntrenador.size(); i++){
+            Pokemon pokemon = disponiblesEntrenador.get(i);
             ListaPokemones.Lista(pokemon);
         }
     }

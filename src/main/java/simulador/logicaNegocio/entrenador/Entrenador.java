@@ -23,9 +23,13 @@ public class Entrenador {
         //TODO: completar el metodo
     }
     public void mostrarPokemones(){
-        for(int i = 1; i < pokemones.size(); i++){
-            Pokemon pokemon = pokemones.get(i);
-            ListaPokemones.Lista(pokemon);
+        if(pokemones.size() == 1){
+            System.out.println("! No hay pokemones registrados !");
+        } else {
+            for(int i = 1; i < pokemones.size(); i++){
+                Pokemon pokemon = pokemones.get(i);
+                ListaPokemones.Lista(pokemon);
+            }
         }
     }
     public void prepararBatalla(){
