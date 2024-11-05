@@ -38,6 +38,7 @@ public class Controller implements Serializable{
         pokemonesBase.add(pokBase);
         entrenadoresList.add(entrenador);
         pokemonesList.add(pokBase);
+        disponiblesEntrenador.add(pokBase);
         agregarPokemones();
     }
 
@@ -132,7 +133,7 @@ public class Controller implements Serializable{
             value = sc.nextInt();
             switch (value) {
                 case 1:
-                    // Logica de ver equipo de pokemones;
+                    entrenador.mostrarPokemones();
                     break;
                 case 2:
                     // logica de Agregar Pokémon al equipo

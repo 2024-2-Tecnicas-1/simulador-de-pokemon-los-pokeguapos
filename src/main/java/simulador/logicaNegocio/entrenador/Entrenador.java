@@ -2,6 +2,7 @@ package simulador.logicaNegocio.entrenador;
 
 import java.util.List;
 
+import simulador.View.ListaPokemones;
 import simulador.logicaNegocio.pokemon.Pokemon;
 
 public class Entrenador {
@@ -15,14 +16,17 @@ public class Entrenador {
     }
 
     public void agregarPokemon (Pokemon pokemon){
-        // TODO: completar el método
+        pokemones.add(pokemon);
     }
 
     public void entrenarPokemon (Pokemon pokemon){
         //TODO: completar el metodo
     }
-    public void mostrarPokemoes(){
-        //TODO: completar el metodo 
+    public void mostrarPokemones(){
+        for(int i = 1; i < pokemones.size(); i++){
+            Pokemon pokemon = pokemones.get(i);
+            ListaPokemones.Lista(pokemon);
+        }
     }
     public void prepararBatalla(){
         //TODO: completar el metodo
