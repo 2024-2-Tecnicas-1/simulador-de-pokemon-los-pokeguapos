@@ -18,10 +18,7 @@ public class Entrenador {
     public void agregarPokemon (Pokemon pokemon){
         pokemones.add(pokemon);
     }
-
-    public void entrenarPokemon (Pokemon pokemon){
-        //TODO: completar el metodo
-    }
+    
     public void mostrarPokemones(){
         if(pokemones.size() == 1){
             System.out.println("! No hay pokemones registrados !");
@@ -38,5 +35,9 @@ public class Entrenador {
 
     public String getNombre(){
         return this.nombreEntrenador;
+    }
+    
+    public List<Pokemon> getPokemones(){
+        return this.pokemones;
     }
 }

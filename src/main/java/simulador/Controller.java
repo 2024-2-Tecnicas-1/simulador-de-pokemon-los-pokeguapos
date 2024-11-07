@@ -12,20 +12,20 @@ import simulador.logicaNegocio.entrenador.Entrenador;
 import simulador.logicaNegocio.pokemon.Estados;
 import simulador.logicaNegocio.pokemon.Pokemon;
 import simulador.logicaNegocio.pokemon.TipoPokemon;
- 
 
-public class Controller implements Serializable{
+public class Controller implements Serializable {
+
     Scanner sc = new Scanner(System.in);
-    
+
     //HashMap<Pokemon,Boolean> disponiblesRegistroMap = new HashMap<>();
     List<Pokemon> disponiblesRegistro = new ArrayList<>();
 
-    HashMap<String,Entrenador> entrenadores = new HashMap<>();
-    List<Entrenador> entrenadoresList = new ArrayList<>();     
+    HashMap<String, Entrenador> entrenadores = new HashMap<>();
+    List<Entrenador> entrenadoresList = new ArrayList<>();
 
     //HashMap<String,Pokemon> pokemones = new HashMap<>();
     List<Pokemon> pokemonesList = new ArrayList<>();
-    
+
     //HashMap<Pokemon,Boolean> disponiblesEntrenadorMap = new HashMap<>();
     List<Pokemon> disponiblesEntrenador = new ArrayList<>();
 
@@ -34,7 +34,7 @@ public class Controller implements Serializable{
     Entrenador entrenador = new Entrenador("Base", null);
     Pokemon pokBase = new Pokemon(null, 0, 0, null, null);
 
-    public Controller(){
+    public Controller() {
         pokemonesBase.add(pokBase);
         entrenadoresList.add(entrenador);
         pokemonesList.add(pokBase);
@@ -42,15 +42,15 @@ public class Controller implements Serializable{
         agregarPokemones();
     }
 
-    public void run(){
+    public void run() {
         ConsoleMenuPrincipal();
         // Mejorar salida del juego
         System.out.println("Salida");
     }
 
-    public void ConsoleMenuPrincipal(){
+    public void ConsoleMenuPrincipal() {
         int option = 0;
-        while(option != 4){
+        while (option != 4) {
             Menu.MenuPrincipal();
             option = sc.nextInt();
             switch (option) {
@@ -60,7 +60,7 @@ public class Controller implements Serializable{
                 case 2:
                     ConsoleGestionarPokemones();
                 case 3:
-                    // Logica de Batalla con Batalla.java
+                // Logica de Batalla con Batalla.java
                 case 4:
                     break;
                 default:
@@ -70,22 +70,22 @@ public class Controller implements Serializable{
         }
     }
 
-    public void ConsoleGestionarEntrenador(){
+    public void ConsoleGestionarEntrenador() {
         int option = 0;
-        while(option != 4){
+        while (option != 4) {
             Menu.MenuGestionarEntrenadores();
             option = sc.nextInt();
             sc.nextLine();
-            switch(option){
+            switch (option) {
                 case 1:
-                    while(true){
+                    while (true) {
                         System.out.print("Escribe el nombre del nuevo entrenador: \n ->  ");
                         String nombre = sc.nextLine();
                         //nombre = nombre.toLowerCase();
-                        if(entrenadores.containsKey(nombre)){
+                        if (entrenadores.containsKey(nombre)) {
                             System.out.println("Este nombre ya esta tomado por otro entrenador, elige otro nombre.");
                         } else {
-                            entrenadores.put(nombre,new Entrenador(nombre, pokemonesBase));
+                            entrenadores.put(nombre, new Entrenador(nombre, pokemonesBase));
                             entrenadoresList.add(new Entrenador(nombre, pokemonesBase));
                             System.out.println("El entrenador fue creado correctamente");
                             break;
@@ -93,25 +93,25 @@ public class Controller implements Serializable{
                     }
                     break;
                 case 2:
-                    if(entrenadoresList.size() == 1){
+                    if (entrenadoresList.size() == 1) {
                         System.out.println("! No hay entrenadores registrados !");
                     } else {
                         MostrarEntrenadores();
                     }
                     break;
                 case 3:
-                    if(entrenadoresList.size() == 1){
+                    if (entrenadoresList.size() == 1) {
                         System.out.println("! No hay entrenadores registrados !");
                     } else {
                         MostrarEntrenadores();
-                        while(true){
+                        while (true) {
                             System.out.print("Elija un entrenador ->\n");
                             int value = sc.nextInt();
-                            if(value > 0 && value < entrenadoresList.size()){
+                            if (value > 0 && value < entrenadoresList.size()) {
                                 Entrenador entrenador = entrenadoresList.get(value);
                                 ConsoleEntrenadorEspecifico(entrenador);
                                 break;
-                            } else{
+                            } else {
                                 System.out.println("Error, intentelo de nuevo");
                             }
                         }
@@ -126,9 +126,9 @@ public class Controller implements Serializable{
         }
     }
 
-    public void ConsoleEntrenadorEspecifico(Entrenador entrenador){
+    public void ConsoleEntrenadorEspecifico(Entrenador entrenador) {
         int value = 0;
-        while(value != 4){
+        while (value != 4) {
             Menu.MenuEntrenadorEspecifico(entrenador.getNombre());
             value = 0;
             value = sc.nextInt();
@@ -137,13 +137,13 @@ public class Controller implements Serializable{
                     entrenador.mostrarPokemones();
                     break;
                 case 2:
-                    if(disponiblesEntrenador.size() == 1){
+                    if (disponiblesEntrenador.size() == 1) {
                         System.out.println("! No hay pokemones disponibles !");
                     } else {
                         mostrarPokemonesDisponiblesEntrenador();
-                        while(true){
+                        while (true) {
                             int option = sc.nextInt();
-                            if(option > 0 && option < disponiblesEntrenador.size()){
+                            if (option > 0 && option < disponiblesEntrenador.size()) {
                                 Pokemon pokemon = disponiblesEntrenador.get(option);
                                 disponiblesEntrenador.remove(option);
                                 entrenador.agregarPokemon(pokemon);
@@ -153,14 +153,27 @@ public class Controller implements Serializable{
                             }
                         }
                     }
+                    break;
                 case 3:
-                    // Logica de Entrenar Pokémon
-                    /*
-                     1- Listar los pokemones de ese entrenador
-                     2- Que el usuario elija que pokemon de la lista desea entrenar
-                     3- Implementar UI en Classe ArtEntrenar.java
-                     4- Subirle puntaje a salud y daño
-                     */
+                    if (entrenador.getPokemones().size() <= 1) {
+                        System.out.println("No hay pokemones disponibles para entrenar");
+                    } else {
+                        entrenador.mostrarPokemones();
+                        while (true) {
+                            System.out.print("Seleccione el pokemon que desea entrenar \n ->");
+                            int pokemonSeleccionado = sc.nextInt();
+                            if (pokemonSeleccionado > 0 && pokemonSeleccionado < entrenador.getPokemones().size()) {
+                                Pokemon pokemon = entrenador.getPokemones().get(pokemonSeleccionado);
+                                pokemon.entrenar();
+                                System.out.println("¡Entrenamiento completado!");
+                                System.out.println("Salud: " + pokemon.getSalud() + ", Puntos de Ataque: " + pokemon.getPuntosDeAtaque());
+                                break;
+                            } else {
+                                System.out.println("Error, intentelo de nuevo.");
+                            }
+                        }
+                    }
+                    break;
                 case 4:
                     break;
                 default:
@@ -169,28 +182,28 @@ public class Controller implements Serializable{
             }
         }
     }
-    
-    public void ConsoleGestionarPokemones(){
+
+    public void ConsoleGestionarPokemones() {
         int option = 0;
-        while(option != 3){
+        while (option != 3) {
             Menu.MenuGestionarPokemones();
             option = sc.nextInt();
             switch (option) {
                 case 1:
-                    if(pokemonesList.size() == 1){
+                    if (pokemonesList.size() == 1) {
                         System.out.println("! No hay pokemones registrados !");
                     } else {
                         mostrarPokemonesRegistrados();
                     }
                     break;
                 case 2:
-                    if(disponiblesRegistro.size() == 1){
+                    if (disponiblesRegistro.size() == 1) {
                         System.out.println("! No hay pokemones disponibles para registrar !");
                     } else {
-                        while(true){
+                        while (true) {
                             mostrarPokemonesRegistro();
                             int value = sc.nextInt();
-                            if(value > 0 && value < disponiblesRegistro.size()){
+                            if (value > 0 && value < disponiblesRegistro.size()) {
                                 Pokemon nuevoPokemon = disponiblesRegistro.get(value);
                                 pokemonesList.add(nuevoPokemon);
                                 disponiblesEntrenador.add(nuevoPokemon);
@@ -203,15 +216,15 @@ public class Controller implements Serializable{
                     }
                     break;
                 case 3:
-                    break;    
+                    break;
                 default:
                     System.out.println("Error, intentelo de nuevo...");
                     break;
             }
         }
-    } 
+    }
 
-    public void agregarPokemones(){
+    public void agregarPokemones() {
         disponiblesRegistro.add(pokBase);
         Pokemon nuevoPokemon = new Pokemon("Charmander", 39, 52, TipoPokemon.FUEGO, Estados.NORMAL);
         disponiblesRegistro.add(nuevoPokemon);
@@ -225,41 +238,39 @@ public class Controller implements Serializable{
         disponiblesRegistro.add(nuevoPokemon);
         nuevoPokemon = new Pokemon("Geodude", 40, 80, TipoPokemon.TIERRA, Estados.NORMAL);
         disponiblesRegistro.add(nuevoPokemon);
-        nuevoPokemon = new Pokemon("Pidgey", 40,45, TipoPokemon.NORMAL,Estados.NORMAL);
+        nuevoPokemon = new Pokemon("Pidgey", 40, 45, TipoPokemon.NORMAL, Estados.NORMAL);
         disponiblesRegistro.add(nuevoPokemon);
-        nuevoPokemon = new Pokemon("Jigglypuff",115,45,TipoPokemon.HADA,Estados.NORMAL);
+        nuevoPokemon = new Pokemon("Jigglypuff", 115, 45, TipoPokemon.HADA, Estados.NORMAL);
         disponiblesRegistro.add(nuevoPokemon);
-        nuevoPokemon = new Pokemon("Machop",70,80, TipoPokemon.LUCHA,Estados.NORMAL);
+        nuevoPokemon = new Pokemon("Machop", 70, 80, TipoPokemon.LUCHA, Estados.NORMAL);
         disponiblesRegistro.add(nuevoPokemon);
-        nuevoPokemon = new Pokemon("Grimer", 80, 80, TipoPokemon.VENENO,Estados.NORMAL);
+        nuevoPokemon = new Pokemon("Grimer", 80, 80, TipoPokemon.VENENO, Estados.NORMAL);
         disponiblesRegistro.add(nuevoPokemon);
     }
 
-    void MostrarEntrenadores(){
-        for(int i = 1; i < entrenadoresList.size(); i++){
+    void MostrarEntrenadores() {
+        for (int i = 1; i < entrenadoresList.size(); i++) {
             System.out.println(i + ". | " + entrenadoresList.get(i).getNombre() + " | ");
         }
     }
 
-    void mostrarPokemonesRegistro(){
-        for(int i = 1; i < disponiblesRegistro.size(); i++){
+    void mostrarPokemonesRegistro() {
+        for (int i = 1; i < disponiblesRegistro.size(); i++) {
             System.out.println(i + ". | " + disponiblesRegistro.get(i).getNombre());
         }
     }
 
-    void mostrarPokemonesRegistrados(){
-        for(int i = 1; i < pokemonesList.size(); i++){
+    void mostrarPokemonesRegistrados() {
+        for (int i = 1; i < pokemonesList.size(); i++) {
             Pokemon pokemon = pokemonesList.get(i);
             ListaPokemones.Lista(pokemon);
         }
     }
 
-    void mostrarPokemonesDisponiblesEntrenador(){
-        for(int i = 1; i < disponiblesEntrenador.size(); i++){
+    void mostrarPokemonesDisponiblesEntrenador() {
+        for (int i = 1; i < disponiblesEntrenador.size(); i++) {
             Pokemon pokemon = disponiblesEntrenador.get(i);
             ListaPokemones.Lista(pokemon);
         }
     }
 }
-
-
