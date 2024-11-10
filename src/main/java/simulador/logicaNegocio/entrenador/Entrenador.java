@@ -1,5 +1,6 @@
 package simulador.logicaNegocio.entrenador;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import simulador.View.ListaPokemones;
@@ -7,12 +8,11 @@ import simulador.logicaNegocio.pokemon.Pokemon;
 
 public class Entrenador {
     private String nombreEntrenador;
-    private List<Pokemon> pokemones;
+    private List<Pokemon> pokemones = new ArrayList<>();
 
-    public Entrenador(String nombreEntrenador, List<Pokemon> pokemones){
+    public Entrenador(String nombreEntrenador, Pokemon pokBase){
         this.nombreEntrenador = nombreEntrenador;
-        this.pokemones = pokemones;
-
+        pokemones.add(pokBase);
     }
 
     public void agregarPokemon (Pokemon pokemon){

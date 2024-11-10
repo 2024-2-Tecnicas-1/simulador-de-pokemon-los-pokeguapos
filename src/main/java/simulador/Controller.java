@@ -85,8 +85,8 @@ public class Controller implements Serializable {
                         if (entrenadores.containsKey(nombre)) {
                             System.out.println("Este nombre ya esta tomado por otro entrenador, elige otro nombre.");
                         } else {
-                            entrenadores.put(nombre, new Entrenador(nombre, pokemonesBase));
-                            entrenadoresList.add(new Entrenador(nombre, pokemonesBase));
+                            entrenadores.put(nombre, new Entrenador(nombre, pokBase));
+                            entrenadoresList.add(new Entrenador(nombre, pokBase));
                             System.out.println("El entrenador fue creado correctamente");
                             break;
                         }
@@ -270,6 +270,13 @@ public class Controller implements Serializable {
     void mostrarPokemonesDisponiblesEntrenador() {
         for (int i = 1; i < disponiblesEntrenador.size(); i++) {
             Pokemon pokemon = disponiblesEntrenador.get(i);
+            ListaPokemones.Lista(pokemon);
+        }
+    }
+
+    void mostrarPokemonesEntrenadorEspecifico(List<Pokemon> pokemones){
+        for(int i = 1; i < pokemones.size(); i++){
+            Pokemon pokemon = pokemones.get(i);
             ListaPokemones.Lista(pokemon);
         }
     }
