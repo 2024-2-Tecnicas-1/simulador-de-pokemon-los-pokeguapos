@@ -11,6 +11,7 @@ import persistencia.ArchivosConexion;
 import simulador.View.ListaPokemones;
 import simulador.View.Menu;
 import simulador.logicaNegocio.ArchivosControlador;
+import simulador.logicaNegocio.batalla.BatallaForm;
 import simulador.logicaNegocio.entrenador.Entrenador;
 import simulador.logicaNegocio.pokemon.Estados;
 import simulador.logicaNegocio.pokemon.Pokemon;
@@ -51,28 +52,28 @@ public class Controller implements Serializable {
         pokemonesList.add(pokBase);
         disponiblesEntrenador.add(pokBase);
         agregarPokemones();
-        File archivo = new File("datos/",POKEMONES_DISPONIBLES_G);
+        File archivo = new File("datos/", POKEMONES_DISPONIBLES_G);
         System.out.println("archivo: " + archivo.getAbsolutePath());
         if (!archivo.exists()) {
             controlador.guardar(disponiblesRegistro, POKEMONES_DISPONIBLES_G);
         }
 
-        archivo = new File("datos/",ENTRENADORES_D_G);
+        archivo = new File("datos/", ENTRENADORES_D_G);
         if (!archivo.exists()) {
             controlador.guardar(entrenadores, ENTRENADORES_D_G);
         }
 
-        archivo = new File("datos/",ENTRENADORES_L_G);
+        archivo = new File("datos/", ENTRENADORES_L_G);
         if (!archivo.exists()) {
             controlador.guardar(entrenadoresList, ENTRENADORES_L_G);
         }
-        
-        archivo = new File("datos/",POKEMONES_REGISTRADOS_G);
+
+        archivo = new File("datos/", POKEMONES_REGISTRADOS_G);
         if (!archivo.exists()) {
             controlador.guardar(pokemonesList, POKEMONES_REGISTRADOS_G);
         }
-        
-        archivo = new File("datos/",POKEMONES_ENTRENADOR_G);
+
+        archivo = new File("datos/", POKEMONES_ENTRENADOR_G);
         if (!archivo.exists()) {
             controlador.guardar(disponiblesEntrenador, POKEMONES_ENTRENADOR_G);
         }
@@ -112,11 +113,11 @@ public class Controller implements Serializable {
                 case 2:
                     ConsoleGestionarPokemones();
                 case 3:
-                if(entrenadores.size() >= 3){
-                    ConsoleBatalla();
-                } else {
-                    System.out.println("No hay entrenadores suficientes para hacer una batalla");
-                }
+                    if (entrenadoresList.size() >= 3) {
+                        ConsoleBatalla();
+                    } else {
+                        System.out.println("No hay entrenadores suficientes para hacer una batalla");
+                    }
                 case 4:
                     break;
                 default:
@@ -294,14 +295,113 @@ public class Controller implements Serializable {
             }
         }
     }
-    
-    public void ConsoleBatalla(){
+
+    public void ConsoleBatalla() {
         int option = 0;
-        /*
-        while(option != 6){
-            
+        int value = 0;
+        Entrenador entrenador1 = null;
+        Pokemon pokemon1 = null;
+        Entrenador entrenador2 = null;
+        Pokemon pokemon2 = null;
+        while (option != 6) {
+            Menu.MenuBatalla();
+            option = sc.nextInt();
+            switch (option) {
+                case 1:
+                    while (true) {
+                        MostrarEntrenadores();
+                        value = sc.nextInt();
+                        entrenador1 = entrenadoresList.get(value);
+                        if (value >= 1 && value <= entrenadoresList.size()) {
+                            if (entrenador2 != null) {
+                                if (entrenador1.getNombre() == entrenador2.getNombre()) {
+                                    System.out.println("Este entrenador ya ha sido seleccionado. Intente de nuevo");
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            System.out.println("Error, intente de nuevo");
+                        }
+                    }
+                    break;
+                case 2:
+                    while (true) {
+                        MostrarEntrenadores();
+                        value = sc.nextInt();
+                        entrenador2 = entrenadoresList.get(value);
+                        if (value >= 1 && value <= entrenadoresList.size()) {
+                            if (entrenador1 != null) {
+                                if (entrenador1.getNombre() == entrenador2.getNombre()) {
+                                    System.out.println("Este entrenador ya ha sido seleccionado. Intente de nuevo");
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            System.out.println("Error, intente de nuevo");
+                        }
+                    }
+                    break;
+                case 3:
+                    if (entrenador1 != null) {
+                        if (entrenador1.getPokemones().size() <= 1) {
+                            System.out.println("No hay pokemones disponibles");
+                        } else {
+                            entrenador1.mostrarPokemones();
+                            while (true) {
+                                System.out.print("Seleccione el pokemon con el que desea luchar \n ->");
+                                int pokemonSeleccionado = sc.nextInt();
+                                if (pokemonSeleccionado > 0 && pokemonSeleccionado < entrenador1.getPokemones().size()) {
+                                    pokemon1 = entrenador1.getPokemones().get(pokemonSeleccionado);
+                                    break;
+                                } else {
+                                    System.out.println("Error, intentelo de nuevo.");
+                                }
+                            }
+                        }
+                    } else {
+                        System.out.println("El entrenador 1 no ha sido selecciondo");
+                    }
+                    break;
+                case 4:
+                    if (entrenador2 != null) {
+                        if (entrenador2.getPokemones().size() <= 1) {
+                            System.out.println("No hay pokemones disponibles");
+                        } else {
+                            entrenador2.mostrarPokemones();
+                            while (true) {
+                                System.out.print("Seleccione el pokemon con el que desea luchar \n ->");
+                                int pokemonSeleccionado = sc.nextInt();
+                                if (pokemonSeleccionado > 0 && pokemonSeleccionado < entrenador2.getPokemones().size()) {
+                                    pokemon2 = entrenador2.getPokemones().get(pokemonSeleccionado);
+                                    break;
+                                } else {
+                                    System.out.println("Error, intentelo de nuevo.");
+                                }
+                            }
+                        }
+                    } else {
+                        System.out.println("El entrenador 1 no ha sido selecciondo");
+                    }
+                    break;
+                case 5:
+                    if (entrenador1 == null || entrenador2 == null || pokemon1 == null || pokemon2 == null) {
+                        System.out.println("ERROR, para poder batallar debe haber seleccionado los 2 entrenadores y los 2 pokemones que lucharan");
+                    } else {
+                        BatallaForm batalla = new BatallaForm(pokemon1, pokemon2);
+                        batalla.setVisible(true);
+                    }
+                    break;
+                case 6:
+                    break;
+            }
         }
-        */
+
     }
 
     public void agregarPokemones() {

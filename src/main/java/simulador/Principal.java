@@ -1,11 +1,5 @@
 package simulador;
 
-import simulador.logicaNegocio.Pokemones.Bulbasaur;
-import simulador.logicaNegocio.Pokemones.Charmander;
-import simulador.logicaNegocio.batalla.BatallaForm;
-import simulador.logicaNegocio.pokemon.Estados;
-import simulador.logicaNegocio.pokemon.Pokemon;
-import simulador.logicaNegocio.pokemon.TipoPokemon;
 
 public class Principal {
     public static void main(String[] args) {

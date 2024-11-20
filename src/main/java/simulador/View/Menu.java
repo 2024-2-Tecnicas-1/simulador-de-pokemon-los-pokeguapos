@@ -76,7 +76,7 @@ public class Menu {
         );
     }
 
-    public void MenuBatalla(){
+    public static void MenuBatalla(){
         System.out.println(
             "                                  ,'\\\n" +
             "    _.----.        ____         ,'  _\\   ___    ___     ____\n" +
@@ -127,5 +127,6 @@ public class Menu {
             "===================================================================="
         );
     }
+
 
 }
