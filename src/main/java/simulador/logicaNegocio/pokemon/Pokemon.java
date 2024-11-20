@@ -16,7 +16,7 @@ public class Pokemon  implements Serializable{
         this.tipo = tipo;
         this.estado = estado;
     }
-
+    /*
     // TODO: Falta completar de manera correcta los metodos.
     public void atacar(Pokemon oponente){
         // TODO: completar metodo
@@ -25,12 +25,7 @@ public class Pokemon  implements Serializable{
     public void recibirDaño(int daño){
         // TODO: Completar metodo
     }
-    
-    public void entrenar(){
-        this.salud += 5;
-        this.puntosDeAtaque += 2;
-    }
-
+    */
     // GETTERS
     public String getNombre(){
         return this.nombre;

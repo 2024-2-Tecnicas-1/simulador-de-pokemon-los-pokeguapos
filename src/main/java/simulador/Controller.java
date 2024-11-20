@@ -112,7 +112,11 @@ public class Controller implements Serializable {
                 case 2:
                     ConsoleGestionarPokemones();
                 case 3:
-                // Logica de Batalla con Batalla.java
+                if(entrenadores.size() >= 3){
+                    ConsoleBatalla();
+                } else {
+                    System.out.println("No hay entrenadores suficientes para hacer una batalla");
+                }
                 case 4:
                     break;
                 default:
@@ -289,6 +293,15 @@ public class Controller implements Serializable {
                     break;
             }
         }
+    }
+    
+    public void ConsoleBatalla(){
+        int option = 0;
+        /*
+        while(option != 6){
+            
+        }
+        */
     }
 
     public void agregarPokemones() {
