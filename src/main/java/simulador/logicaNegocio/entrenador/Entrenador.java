@@ -1,12 +1,13 @@
 package simulador.logicaNegocio.entrenador;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import simulador.View.ListaPokemones;
 import simulador.logicaNegocio.pokemon.Pokemon;
 
-public class Entrenador {
+public class Entrenador implements Serializable{
     private String nombreEntrenador;
     private List<Pokemon> pokemones = new ArrayList<>();
 

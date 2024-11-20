@@ -1,6 +1,8 @@
 package simulador.logicaNegocio.pokemon;
 
-public class Pokemon {
+import java.io.Serializable;
+
+public class Pokemon  implements Serializable{
     private String nombre;
     private int salud;
     private int puntosDeAtaque;
@@ -23,7 +25,7 @@ public class Pokemon {
     public void recibirDaño(int daño){
         // TODO: Completar metodo
     }
-
+    
     public void entrenar(){
         this.salud += 5;
         this.puntosDeAtaque += 2;
