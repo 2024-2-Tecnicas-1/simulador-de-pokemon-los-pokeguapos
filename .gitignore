@@ -3,6 +3,4 @@
 
 target/
 
-datos/*
-
-!datos/
+datos/*.*
